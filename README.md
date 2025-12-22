@@ -6,9 +6,17 @@ automation as AI-controllable tools.
 ## Features
 - Open / close browser
 - Navigate to URLs
-- Reusable driver session
-- MCP-compliant tools
-- Works with GitHub Copilot
+- Find elements using locators
+- Click, sendKeys and interact with elements
+- Perform mouse actions(hover, drag and drop, presskey, doubleClick)
+- Take screenshot
+- Upload files
+- Switch to windows, iFrames
+
+## Supported  Browsers
+- Chrome
+- Firefox
+- MS Edge
 
 ## Usage
 See examples in `/src/mcp/server.ts`
