@@ -8,12 +8,6 @@ import { Select } from 'selenium-webdriver/lib/select';
 import { until } from "selenium-webdriver";
 
 
-const startBrowserOutputSchema = z.object({
-    success: z.boolean(),
-    browser: z.string(),
-    message: z.string(),
-});
-
 const server = new McpServer({
     name: "mcp-selenium-server",
     version: "1.0.0",
@@ -118,6 +112,45 @@ server.registerTool(
         }
     }
 )
+// Register the "get_current_url" tool
+server.registerTool(
+    "get_current_url",
+    {
+        title: "Get Current URL",
+        description: "Get the current URL of the browser.",
+        outputSchema: z.object({
+            success: z.boolean(),
+            url: z.string().url().optional(),
+            message: z.string(),
+        }),
+    },
+    async () => {
+        try {
+            const driver = await getActiveDriver();
+            const url = await driver.getCurrentUrl();
+            return {
+                content: [
+                    { type: "text", text: `Current URL: ${url}` }
+                ],
+                structuredContent: {
+                    success: true,
+                    url,
+                    message: `Current URL: ${url}`,
+                }
+            };
+        } catch (error: any) {
+            return {
+                content: [
+                    { type: "text", text: `Failed to get current URL: ${error.message}` }
+                ],
+                structuredContent: {
+                    success: false,
+                    message: error.message,
+                }
+            };
+        }
+    }
+);
 
 // Register the "find_element" tool
 server.registerTool(
@@ -780,6 +813,132 @@ server.registerTool(
             return {
                 content: [
                     { type: "text", text: `Failed to right-click element: ${error.message}` }
+                ],
+                structuredContent: {
+                    success: false,
+                    message: error.message,
+                }
+            };
+        }
+    }
+);
+
+// Register the "switch_to_frame" tool
+server.registerTool(
+    "switch_to_frame",
+    {
+        title: "Switch to Frame",
+        description: "Switch the driver's context to a specified iframe using a locator strategy.",
+        inputSchema: z.object({
+            by: z.enum(["id", "css", "xpath", "name", "tag", "class"]), 
+            value: z.string(),
+        }),
+        outputSchema: z.object({
+            success: z.boolean(),
+            message: z.string(),
+        }),
+    },
+    async ({ by, value }) => {
+        try {
+            const driver = await getActiveDriver();
+            const locator = getLocator(by, value);
+            const frame = await driver.wait(until.elementLocated(locator), 10000);
+            await driver.switchTo().frame(frame);
+            return {
+                content: [
+                    { type: "text", text: "Switched to frame successfully." }
+                ],
+                structuredContent: {
+                    success: true,
+                    message: "Switched to frame successfully.",
+                }
+            };
+        } catch (error: any) {
+            return {
+                content: [
+                    { type: "text", text: `Failed to switch to frame: ${error.message}` }
+                ],
+                structuredContent: {
+                    success: false,
+                    message: error.message,
+                }
+            };
+        }
+    }
+);
+
+// Register the "switch_to_iframe" tool
+server.registerTool(
+    "switch_to_iframe",
+    {
+        title: "Switch to Iframe",
+        description: "Switch the driver's context to a specified iframe using a locator strategy.",
+        inputSchema: z.object({
+            by: z.enum(["id", "css", "xpath", "name", "tag", "class"]), 
+            value: z.string(),
+        }),
+        outputSchema: z.object({
+            success: z.boolean(),
+            message: z.string(),
+        }),
+    },
+    async ({ by, value }) => {
+        try {
+            const driver = await getActiveDriver();
+            const locator = getLocator(by, value);
+            const iframe = await driver.wait(until.elementLocated(locator), 10000);
+            await driver.switchTo().frame(iframe);
+            return {
+                content: [
+                    { type: "text", text: "Switched to iframe successfully." }
+                ],
+                structuredContent: {
+                    success: true,
+                    message: "Switched to iframe successfully.",
+                }
+            };
+        } catch (error: any) {
+            return {
+                content: [
+                    { type: "text", text: `Failed to switch to iframe: ${error.message}` }
+                ],
+                structuredContent: {
+                    success: false,
+                    message: error.message,
+                }
+            };
+        }
+    }
+);
+
+// Register the "switch_to_default_content" tool
+server.registerTool(
+    "switch_to_default_content",
+    {
+        title: "Switch to Default Content",
+        description: "Switch the driver's context back to the default content from any frame or iframe.",
+        outputSchema: z.object({
+            success: z.boolean(),
+            message: z.string(),
+        }),
+    },
+    async () => {
+        try {
+            const driver = await getActiveDriver();
+            await driver.switchTo().defaultContent();
+            return {
+                content: [
+                    { type: "text", text: "Switched to default content successfully." }
+                ],
+                structuredContent: {
+                    success: true,
+                    message: "Switched to default content successfully.",
+                }
+            };
+        } catch (error: any) {
+            return {
+                content: [
+                    { type: "text", text: `Failed to switch to default content: ${error.message}` }
                 ],
                 structuredContent: {
                     success: false,
