@@ -48,15 +48,6 @@ Prompt: "Open Google and search for ChatGPT"
 
 ---
 
-## 🔮 Future Enhancements
-
-- Natural language → action mapping
-- Self-healing locators
-- AI agent loop (plan → execute → observe)
-- Integration with local LLMs like Ollama
-
----
-
 ## 🛠️ Tech Stack
 
 - Selenium
@@ -65,9 +56,12 @@ Prompt: "Open Google and search for ChatGPT"
 
 ---
 
-## 📌 GitHub Usage
+## 📌 Getting Started
 
-Clone the repo and run the MCP server to start executing browser actions via LLM integrations.
+Clone the repository
+Start the MCP server
+Connect with your preferred LLM
+Execute browser actions via structured prompts
 
 ---
 
