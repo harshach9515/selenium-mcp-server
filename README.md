@@ -1,22 +1,76 @@
-# MCP Selenium Server
+# 🚀 AI-Powered Selenium MCP Server
 
-An MCP (Model Context Protocol) server that exposes Selenium WebDriver
-automation as AI-controllable tools.
+A lightweight MCP (Model Context Protocol) server that enables Large Language Models (LLMs) to interact with real web applications using Selenium.
 
-## Features
-- Open / close browser
-- Navigate to URLs
-- Find elements using locators
-- Click, sendKeys and interact with elements
-- Perform mouse actions(hover, drag and drop, presskey, doubleClick)
-- Take screenshot
-- Upload files
-- Switch to windows, iFrames
+---
 
-## Supported  Browsers
-- Chrome
-- Firefox
-- MS Edge
+## 🔍 Overview
 
-## Usage
-See examples in `/src/mcp/server.ts`
+This project bridges the gap between LLMs and browser automation by exposing Selenium capabilities as structured tools.
+
+Instead of writing traditional automation scripts, LLMs can trigger browser actions through a standardized interface.
+
+---
+
+## 🏗️ Architecture
+
+LLM → MCP Server → Selenium → Browser
+
+---
+
+## ⚙️ Key Features
+
+- Tool-based browser automation (click, type, navigate)
+- Multi-browser support (Chrome, Firefox, Edge)
+- Structured request/response model for LLMs
+- Screenshot and file upload support
+- Window and iframe handling
+
+---
+
+## 🧠 Why This Matters
+
+This project demonstrates how automation can evolve from script-based execution to AI-driven systems where LLMs can:
+
+- Understand tasks
+- Execute browser actions
+- Interact with real-world applications
+
+---
+
+## 🔄 Example Flow
+
+Prompt: "Open Google and search for ChatGPT"
+
+→ LLM converts prompt to structured tool call  
+→ MCP server executes via Selenium  
+→ Result returned back to LLM  
+
+---
+
+## 🔮 Future Enhancements
+
+- Natural language → action mapping
+- Self-healing locators
+- AI agent loop (plan → execute → observe)
+- Integration with local LLMs like Ollama
+
+---
+
+## 🛠️ Tech Stack
+
+- Selenium
+- MCP Protocol
+- TypeScript
+
+---
+
+## 📌 GitHub Usage
+
+Clone the repo and run the MCP server to start executing browser actions via LLM integrations.
+
+---
+
+## 🤝 Contribution
+
+Open to ideas and improvements around AI-driven automation.
